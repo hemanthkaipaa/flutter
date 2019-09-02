@@ -34,8 +34,9 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
   bool showPerformance = false;
   Color colorValue = Colors.pinkAccent;
   Color highlightColor = Colors.red;
-  String levelValue = "LEVEL 2";
-  String levelInfo = "CAUTION: Reach atleast 10 coins to today not to downgrade to LEVEL 1";
+  int levelValue = 2;
+  String levelInfo =
+      "CAUTION: Reach atleast 10 coins today not to downgrade to LEVEL 1";
   static const textSize = TextStyle(fontSize: 100, color: Colors.white);
   final fontStyle = TextStyle(color: Colors.white, fontFamily: 'Railway');
 
@@ -49,19 +50,30 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
           centerTitle: true,
         ),
         backgroundColor: Colors.black,
-
         body: Container(
           padding: EdgeInsets.all(16),
           child: Column(
             children: <Widget>[
               Text("7684",
                   style: TextStyle(
-                      fontSize: 60, color: Colors.white, fontFamily: 'FJ'),
+                      fontSize: 80, color: Colors.white, fontFamily: 'FJ'),
                   textAlign: TextAlign.center),
+              Padding(
+                padding: EdgeInsets.all(4),
+                child: Text("Total Steps",
+                    style: TextStyle(color: Colors.white70, fontSize: 20),
+                    textAlign: TextAlign.center),
+              ),
               Text('$counter',
                   style: TextStyle(
-                      fontSize: 150, color: colorValue, fontFamily: 'FJ'),
+                      fontSize: 160, color: colorValue, fontFamily: 'FJ'),
                   textAlign: TextAlign.center),
+              Padding(
+                padding: EdgeInsets.all(0),
+                child: Text("Coins by Steps",
+                    style: TextStyle(color: Colors.white70, fontSize: 20),
+                    textAlign: TextAlign.center),
+              ),
               RaisedButton(
                   colorBrightness: Brightness.light,
                   onPressed: incrementCounter,
@@ -87,50 +99,183 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
                       ),
                     ],
                   )),
-
               InputDecorator(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.white30),
+                      borderSide: BorderSide(width: 1, color: Colors.white70),
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
-                    labelText: 'INPUT',
+                    labelText: 'YOU ARE ON',
                     labelStyle: TextStyle(
-                      color: Colors.white30,
-                      textBaseline: TextBaseline.alphabetic,
-
-                    )),
+                        color: Colors.white70, fontSize: 20, letterSpacing: 1)),
                 child: Container(
-                  height: 100,
                   child: Row(
                     children: <Widget>[
                       Flexible(
-                        flex: 2,
-                        child:Column(
+                        flex: 3,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Flexible(
-                              child:Text(levelValue,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.green)),
-                            ),
+                                child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text('LEVEL $levelValue',
+                                  style: TextStyle(
+                                      fontSize: 40,
+                                      color: Colors.green,
+                                      fontFamily: 'FJ')),
+                            )),
                             Flexible(
-                              child: Text(levelInfo,style: TextStyle(color: Colors.white30)),
+                              child: Text(levelInfo,
+                                  style: TextStyle(
+                                      color: Colors.white70,
+                                      letterSpacing: 1,
+                                      wordSpacing: 1)),
                             )
-
                           ],
                         ),
                       ),
                       Flexible(
-                        flex: 1,
-                        child: Icon(
-                          Icons.ac_unit,
-                          color: Colors.red,
-                        )
-                      )
-
+                          flex: 1,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.ac_unit,
+                              color: Colors.red,
+                            ),
+                          ))
                     ],
                   ),
                 ),
               ),
+              Container(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: Container(
+                          color: Colors.amber,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
 
+                            children: <Widget>[
+
+                              Container(
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child:  Text('4/4',
+                                      style: TextStyle(
+                                          fontSize: 40,
+                                          color: Colors.black,
+                                          fontFamily: 'FJ')),
+                                ),
+                              ),
+
+                              Container(
+                                color: Colors.red,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child: Text('Rewards',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      )),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+
+
+//                    Flexible(
+//                      flex: 1,
+//                      fit: FlexFit.tight,
+//                      child: ClipRRect(
+//                        borderRadius: BorderRadius.all(Radius.circular(10)),
+//                        child: Container(
+//                          color: Colors.white,
+//                          child: Column(
+//                            crossAxisAlignment: CrossAxisAlignment.center,
+//                            mainAxisSize: MainAxisSize.max,
+//                            children: <Widget>[
+//                              Container(
+//                                color: Colors.white,
+//                                child: Padding(
+//                                  padding: const EdgeInsets.all(4),
+//                                  child:  Text('4/4',
+//                                      style: TextStyle(
+//                                          fontSize: 40,
+//                                          color: Colors.black,
+//                                          fontFamily: 'FJ')),
+//                                ),
+//                              ),
+//
+//                              Container(
+//                                color: Colors.red,
+//                                child: Padding(
+//                                  padding: const EdgeInsets.all(4),
+//                                  child: Text('Rewards',
+//                                      style: TextStyle(
+//                                        fontSize: 20,
+//                                        color: Colors.black,
+//                                      )),
+//                                ),
+//                              )
+//                            ],
+//                          ),
+//                        ),
+//                      ),
+//                    ),
+//
+//                    Flexible(
+//                      flex: 1,
+//                      fit: FlexFit.tight,
+//                      child: ClipRRect(
+//                        borderRadius: BorderRadius.all(Radius.circular(10)),
+//                        child: Container(
+//                          color: Colors.white,
+//                          child: Column(
+//                            crossAxisAlignment: CrossAxisAlignment.center,
+//                            mainAxisSize: MainAxisSize.max,
+//                            children: <Widget>[
+//                              Container(
+//                                color: Colors.white,
+//                                child: Padding(
+//                                  padding: const EdgeInsets.all(4),
+//                                  child:  Text('4/4',
+//                                      style: TextStyle(
+//                                          fontSize: 40,
+//                                          color: Colors.black,
+//                                          fontFamily: 'FJ')),
+//                                ),
+//                              ),
+//
+//                              Container(
+//                                color: Colors.red,
+//                                child: Padding(
+//                                  padding: const EdgeInsets.all(4),
+//                                  child: Text('Rewards',
+//                                      style: TextStyle(
+//                                        fontSize: 20,
+//                                        color: Colors.black,
+//                                      )),
+//                                ),
+//                              )
+//                            ],
+//                          ),
+//                        ),
+//                      ),
+//                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ));
@@ -140,6 +285,9 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
     setState(() {
       colorValue = Colors.deepPurpleAccent[200];
       counter += 1;
+      if (counter % 2 == 0) {
+        levelValue += 1;
+      }
     });
   }
 
