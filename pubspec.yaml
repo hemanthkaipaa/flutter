@@ -56,6 +56,9 @@ flutter:
     - family : FJ
       fonts:
       - asset: asserts/FjallaOne-Regular.ttf
+    - family : GB
+      fonts:
+      - asset: asserts/GB.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
