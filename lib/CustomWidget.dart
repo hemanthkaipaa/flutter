@@ -49,8 +49,28 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
           title: Text('Today', style: fontStyle),
           centerTitle: true,
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () { },
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+          elevation: 2.0,
+        ),
+
         backgroundColor: Colors.black,
-        body: Container(
+
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.blueGrey,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+
+            ],
+          ),
+        ),
+        body: SingleChildScrollView(
+            child: Container(
           padding: EdgeInsets.all(16),
           child: Column(
             children: <Widget>[
@@ -144,137 +164,29 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
-                child:Container(
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
+                child: Container(
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Expanded(
-                        flex: 4,
-                        child:ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          child: Container(
-                            color: Colors.white,
-                            child: Column(
-
-                              children: <Widget>[
-
-                                Container(
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 12, 20, 10),
-                                    child: Text('4/4',
-                                        style: TextStyle(
-                                            fontSize: 40,
-                                            color: Colors.black,
-                                            backgroundColor: Colors.white,
-                                            fontFamily: 'FJ')),
-                                  ),
-                                ), Container(
-                                    color: Colors.red,
-                                    child:  Padding(
-                                      padding: EdgeInsets.fromLTRB(20, 12, 20, 10),
-                                      child: Text('Daily Rewards',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            backgroundColor: Colors.red,
-                                          )),
-                                    )
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                     Utils.columnOne('4/4', 'Daily Rewards'),
+                      Padding(
+                        padding: EdgeInsets.all(5),
                       ),
-                      Spacer(),
-                      Expanded(
-                        flex: 4,
-                        child:ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          child: Container(
-                            color: Colors.white,
-                            child: Column(
-
-                              children: <Widget>[
-
-                                Container(
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 12, 20, 10),
-                                    child: Text('4/4',
-                                        style: TextStyle(
-                                            fontSize: 40,
-                                            color: Colors.black,
-                                            backgroundColor: Colors.white,
-                                            fontFamily: 'FJ')),
-                                  ),
-                                ), Container(
-                                    color: Colors.red,
-                                    child:  Padding(
-                                      padding: EdgeInsets.fromLTRB(20, 12, 20, 10),
-                                      child: Text('Daily Rewards',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            backgroundColor: Colors.red,
-                                          )),
-                                    )
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      Utils.columnOne('15', 'Invite a Friend'),
+                      Padding(
+                        padding: EdgeInsets.all(5),
                       ),
-                      Spacer(),
-                      Expanded(
-                        flex: 4,
-                        child:ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          child: Container(
-                            color: Colors.white,
-                            child: Column(
-
-                              children: <Widget>[
-
-                                Container(
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 12, 20, 10),
-                                    child: Text('4/4',
-                                        style: TextStyle(
-                                            fontSize: 40,
-                                            color: Colors.black,
-                                            backgroundColor: Colors.white,
-                                            fontFamily: 'FJ')),
-                                  ),
-                                ), Container(
-                                    color: Colors.red,
-                                    child:  Padding(
-                                      padding: EdgeInsets.fromLTRB(20, 12, 20, 10),
-                                      child: Text('Daily Rewards',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            backgroundColor: Colors.red,
-                                          )),
-                                    )
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      Utils.columnOne('2456', 'Coins'),
                     ],
                   ),
-                ) ,
+                ),
               )
-
             ],
           ),
-        ));
+        )));
   }
 
   void incrementCounter() {
