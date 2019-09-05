@@ -49,8 +49,13 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
           title: Text('Today', style: fontStyle),
           centerTitle: true,
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton:
+        FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.black,
+
+          backgroundColor: Colors.white10,
+          type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.ac_unit),
@@ -75,6 +80,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
           ],
           currentIndex: 0,
           selectedItemColor: Colors.white,
+          unselectedItemColor:Colors.white54 ,
           selectedIconTheme: IconThemeData(color: Colors.white,size: 32),
         ),
         backgroundColor: Colors.black,
