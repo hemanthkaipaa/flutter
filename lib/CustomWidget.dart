@@ -49,9 +49,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
           title: Text('Today', style: fontStyle),
           centerTitle: true,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton:
-        FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+
         bottomNavigationBar: BottomNavigationBar(
 
           backgroundColor: Colors.white10,
