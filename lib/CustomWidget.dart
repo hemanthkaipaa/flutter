@@ -46,42 +46,13 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black12,
           title: Text('Today', style: fontStyle),
           centerTitle: true,
         ),
 
-        bottomNavigationBar: BottomNavigationBar(
 
-          backgroundColor: Colors.white10,
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.ac_unit),
-              title: Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.android),
-              title: Text('Friends')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business_center),
-              title:Text('Shop')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.attach_money),
-              title:Text('Coins')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.adb),
-              title:Text('Profile')
-            ),
-          ],
-          currentIndex: 0,
-          selectedItemColor: Colors.white,
-          unselectedItemColor:Colors.white54 ,
-          selectedIconTheme: IconThemeData(color: Colors.white,size: 32),
-        ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black12,
         body: SingleChildScrollView(
             child: Container(
           padding: EdgeInsets.all(16),
@@ -92,14 +63,14 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
                       fontSize: 50, color: Colors.white, fontFamily: 'FJ'),
                   textAlign: TextAlign.center),
               Text("Total Steps",
-                  style: TextStyle(color: Colors.white70, fontSize: 20),
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
                   textAlign: TextAlign.center),
               Text('$counter',
                   style: TextStyle(
-                      fontSize: 120, color: colorValue, fontFamily: 'FJ'),
+                      fontSize: 100, color: colorValue, fontFamily: 'FJ'),
                   textAlign: TextAlign.center),
               Text("Coins by Steps",
-                  style: TextStyle(color: Colors.white70, fontSize: 20),
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
                   textAlign: TextAlign.center),
               RaisedButton(
                   colorBrightness: Brightness.light,
@@ -129,12 +100,12 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
               InputDecorator(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.white70),
+                      borderSide: BorderSide(width: 1, color: Colors.white54),
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     labelText: 'YOU ARE ON',
                     labelStyle: TextStyle(
-                        color: Colors.white70, fontSize: 12, letterSpacing: 1)),
+                        color: Colors.white54, fontSize: 12, letterSpacing: 1)),
                 child: Container(
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -159,7 +130,8 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
                             Flexible(
                               child: Text(levelInfo,
                                   style: TextStyle(
-                                      color: Colors.white70,
+                                    fontSize: 12,
+                                      color: Colors.white54,
                                       letterSpacing: 1,
                                       wordSpacing: 1)),
                             )
@@ -231,4 +203,6 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
       }
     });
   }
+
+
 }
