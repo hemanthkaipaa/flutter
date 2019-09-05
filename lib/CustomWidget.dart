@@ -49,26 +49,35 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
           title: Text('Today', style: fontStyle),
           centerTitle: true,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () { },
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-          elevation: 2.0,
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.black,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.ac_unit),
+              title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.android),
+              title: Text('Friends')
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.business_center),
+              title:Text('Shop')
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.attach_money),
+              title:Text('Coins')
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.adb),
+              title:Text('Profile')
+            ),
+          ],
+          currentIndex: 0,
+          selectedItemColor: Colors.white,
+          selectedIconTheme: IconThemeData(color: Colors.white,size: 32),
         ),
-
         backgroundColor: Colors.black,
-
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.blueGrey,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-
-            ],
-          ),
-        ),
         body: SingleChildScrollView(
             child: Container(
           padding: EdgeInsets.all(16),
@@ -76,14 +85,14 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
             children: <Widget>[
               Text("0012",
                   style: TextStyle(
-                      fontSize: 80, color: Colors.white, fontFamily: 'FJ'),
+                      fontSize: 50, color: Colors.white, fontFamily: 'FJ'),
                   textAlign: TextAlign.center),
               Text("Total Steps",
                   style: TextStyle(color: Colors.white70, fontSize: 20),
                   textAlign: TextAlign.center),
               Text('$counter',
                   style: TextStyle(
-                      fontSize: 160, color: colorValue, fontFamily: 'FJ'),
+                      fontSize: 120, color: colorValue, fontFamily: 'FJ'),
                   textAlign: TextAlign.center),
               Text("Coins by Steps",
                   style: TextStyle(color: Colors.white70, fontSize: 20),
@@ -121,9 +130,12 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
                     ),
                     labelText: 'YOU ARE ON',
                     labelStyle: TextStyle(
-                        color: Colors.white70, fontSize: 20, letterSpacing: 1)),
+                        color: Colors.white70, fontSize: 12, letterSpacing: 1)),
                 child: Container(
                   child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Flexible(
                         flex: 3,
@@ -136,7 +148,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
                               alignment: Alignment.topLeft,
                               child: Text('LEVEL $levelValue',
                                   style: TextStyle(
-                                      fontSize: 40,
+                                      fontSize: 25,
                                       color: Colors.green,
                                       fontFamily: 'FJ')),
                             )),
@@ -166,24 +178,30 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
                 child: Container(
+                  color: Colors.black,
                   child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                     Utils.columnOne('4/4', 'Daily Rewards'),
-                      Padding(
-                        padding: EdgeInsets.all(5),
-                      ),
-                      Utils.columnOne('15', 'Invite a Friend'),
-                      Padding(
-                        padding: EdgeInsets.all(5),
-                      ),
-                      Utils.columnOne('2456', 'Coins'),
+                      Expanded(
+                          child: IntrinsicHeight(
+                              child: IntrinsicWidth(
+                        child: Utils.columnOne('3/4', 'Rewards'),
+                      ))),
+                      Padding(padding: EdgeInsets.all(5),),
+                      Expanded(
+                          child: IntrinsicHeight(
+                              child: IntrinsicWidth(
+                                  child: Utils.columnOne(
+                                      "\$ 5", 'Referal')))),
+                      Padding(padding: EdgeInsets.all(5),),
+                      Expanded(
+                          child: IntrinsicHeight(
+                              child: IntrinsicWidth(
+                                  child: Utils.columnOne('\$ 3242', 'Coins')))),
                     ],
                   ),
                 ),
-              )
+              ),
+
             ],
           ),
         )));
@@ -191,7 +209,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
 
   void incrementCounter() {
     setState(() {
-      colorValue = Colors.deepPurpleAccent[200];
+      colorValue = Colors.teal[200];
       counter += 1;
       if (counter % 2 == 0) {
         levelValue += 1;
@@ -203,7 +221,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
     setState(() {
       if (bool) {
         Utils.showMessage(context, "Counter is running", Colors.green);
-        highlightColor = Colors.deepPurpleAccent[200];
+        highlightColor = Colors.teal;
       } else {
         highlightColor = Colors.red;
       }
