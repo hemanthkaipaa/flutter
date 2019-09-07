@@ -108,7 +108,7 @@ class RootStateLess extends State<RootStateFul>{
   void onNavigationItemSelected(int index) {
     setState(() {
       selectionIndex = index;
-      pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
+      pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.ease);
     });
   }
 

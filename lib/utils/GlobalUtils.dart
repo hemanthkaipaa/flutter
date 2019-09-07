@@ -47,6 +47,7 @@ Widget columnOne(String t1, String t2) {
             child: ConstrainedBox(
               constraints: const BoxConstraints(minWidth: double.infinity),
               child: Container(
+                  height: 50,
                   color: Colors.red,
                   child: Padding(
                       padding: EdgeInsets.all(10),
@@ -56,7 +57,7 @@ Widget columnOne(String t1, String t2) {
                             textAlign: TextAlign.center,
                             textWidthBasis: TextWidthBasis.parent,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 12,
                               color: Colors.black,
                               backgroundColor: Colors.red,
                             )),

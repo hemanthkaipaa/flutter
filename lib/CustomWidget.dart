@@ -167,7 +167,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
                           child: IntrinsicHeight(
                               child: IntrinsicWidth(
                                   child: Utils.columnOne(
-                                      "\$ 5", 'Referal')))),
+                                      "\$ 5", 'Invite a friend')))),
                       Padding(padding: EdgeInsets.all(5),),
                       Expanded(
                           child: IntrinsicHeight(
