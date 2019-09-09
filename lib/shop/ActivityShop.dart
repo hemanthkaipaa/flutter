@@ -45,30 +45,20 @@ class ShopStateLess extends State<ShopStateFul>
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Shop'),
-        centerTitle: true,
-        backgroundColor: Colors.black,
-      ),
-      body: Stack(
-          alignment: Alignment.bottomRight,
-          children: <Widget>[
-            Container(
-              child:setupStaggeredGridView(),
-            ),
-            new Align(
-              child:Container(
-                color: Colors.blue,
-                child: Text(' textView'),
-              )
-            )
-          ]),
-    );
+        appBar: AppBar(
+          title: Text('Shop'),
+          centerTitle: true,
+          backgroundColor: Colors.black,
+        ),
+        body: Container(
+          color: Colors.black87,
+          child: setupStaggeredGridView(),
+        ));
   }
 
   Widget setupStaggeredGridView() {
     return new StaggeredGridView.countBuilder(
-      shrinkWrap: true,
+      shrinkWrap: false,
       padding: EdgeInsets.all(14),
       crossAxisCount: 2, //as per your requirement
       itemCount: 8, //as per your requirement
@@ -186,6 +176,45 @@ class ShopStateLess extends State<ShopStateFul>
                 ))
           ],
         ));
+  }
+
+  Widget setupFooterContainer() {
+    return Container(
+      height: 200,
+      color: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Icon(
+                  Icons.access_time,
+                ),
+                Text(
+                  'Daily Rewards',
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1),
+                ),
+                Text(
+                  'You have claimed all 4 rewards. Claim again tomorrow',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   List<ShopBean> shopList = [];
