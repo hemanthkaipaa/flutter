@@ -12,6 +12,18 @@ String hostName= "https://my-json-server.typicode.com/hemanthkaipaa/json/";
 String fetchURL(String pathURL){
   return hostName+pathURL;
 }
+///------------------------------------- APP colors-------------------------------------
+Color primaryColor(){
+  return Colors.black87;
+}
+Color primaryDark(){
+  return Colors.black;
+}
+Color primaryAccent(){
+  return Colors.black;
+}
+
+
 
 void showMessage(BuildContext buildContext, String message, Color color) {
   showToast(message,
