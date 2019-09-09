@@ -18,7 +18,6 @@ class ShopRootWidget extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.black,
         primaryColorBrightness: Brightness.dark,
-//          fontFamily: 'Raleway'
       ),
       home: ShopStateFul(),
     );
@@ -33,7 +32,8 @@ class ShopStateFul extends StatefulWidget {
   }
 }
 
-class ShopStateLess extends State<ShopStateFul> {
+class ShopStateLess extends State<ShopStateFul>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     // TODO: implement initState
@@ -50,23 +50,43 @@ class ShopStateLess extends State<ShopStateFul> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Container(color: Colors.teal, child: setupStaggeredGridView()),
+      body: Stack(
+          alignment: Alignment.bottomRight,
+          children: <Widget>[
+            Container(
+              child:setupStaggeredGridView(),
+            ),
+            new Align(
+              child:Container(
+                color: Colors.blue,
+                child: Text(' textView'),
+              )
+            )
+          ]),
     );
   }
 
   Widget setupStaggeredGridView() {
     return new StaggeredGridView.countBuilder(
+      shrinkWrap: true,
+      padding: EdgeInsets.all(14),
       crossAxisCount: 2, //as per your requirement
       itemCount: 8, //as per your requirement
       itemBuilder: (BuildContext context, int index) {
-        return setupTileWithImages(shopList[index].brandDesc,shopList[index].imageLink); //your
+        if (shopList[index].brandID == '01') {
+          return setupTileWithImages(
+              shopList[index].brandDesc, shopList[index].imageLink); //your
+        } else {
+          return setupSplitTileWithImages(
+              shopList[index].brandDesc, shopList[index].imageLink); //your
+        }
       },
       staggeredTileBuilder: (int index) {
         if (shopList != null) {
           if (shopList[index].brandID == '01') {
-            return new StaggeredTile.count(2, 1);
+            return new StaggeredTile.count(2, 2);
           } else {
-            return new StaggeredTile.count(1, 1);
+            return new StaggeredTile.count(1, 1.2);
           }
         } else {
           return null;
@@ -97,21 +117,75 @@ class ShopStateLess extends State<ShopStateFul> {
       ],
     ));
   }
-  Widget setupTileWithImages(String t1,String imageLink) {
+
+  Widget setupTileWithImages(String t1, String imageLink) {
     return Card(
+        borderOnForeground: false,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text(t1, textAlign: TextAlign.center),
-        CachedNetworkImage(
-          height: 100,
-          imageUrl: imageLink,
-          placeholder: (context, url) => new CircularProgressIndicator(),
-          errorWidget: (context, url, error) => new Icon(Icons.error),
-        )
-      ],
-    ));
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+                flex: 5,
+                child: CachedNetworkImage(
+                  imageUrl: imageLink,
+                  placeholder: (context, url) =>
+                      new CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                  fit: BoxFit.cover,
+                )),
+            Expanded(
+                child: Container(
+              height: 100,
+              color: Colors.black,
+              alignment: Alignment.center,
+              child: Text(
+                t1,
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ))
+          ],
+        ));
+  }
+
+  Widget setupSplitTileWithImages(String t1, String imageLink) {
+    return Card(
+        borderOnForeground: false,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+                flex: 6,
+                child: CachedNetworkImage(
+                  imageUrl: imageLink,
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                  fit: BoxFit.cover,
+                )),
+            Expanded(
+                flex: 2,
+                child: Container(
+                  color: Colors.black,
+                  alignment: Alignment.center,
+                  child: Text(
+                    t1,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12),
+                  ),
+                ))
+          ],
+        ));
   }
 
   List<ShopBean> shopList = [];
@@ -124,16 +198,16 @@ class ShopStateLess extends State<ShopStateFul> {
       shopList.addAll(responseParsed);
     });
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class ShopBean {
   String brandDesc;
   String brandID;
   String imageLink;
-
-//  ShopBean(this.brandDesc);
-//  ShopBean.catID(this.brandDesc,this.brandID);
-//  ShopBean.extraParam(this.brandDesc,this.imageLink);
   ShopBean({this.brandID, this.brandDesc, this.imageLink});
 
   factory ShopBean.fromJSON(Map<String, dynamic> json) {

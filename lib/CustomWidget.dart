@@ -15,7 +15,7 @@ class CustomWidget extends StatelessWidget {
       theme: ThemeData(
           primaryColor: Colors.black,
           primaryColorBrightness: Brightness.dark,
-          fontFamily: 'Railway'),
+         ),
       home: IncrementCounterStateFul(),
     );
   }
@@ -29,7 +29,7 @@ class IncrementCounterStateFul extends StatefulWidget {
   }
 }
 
-class CounterStateLess extends State<IncrementCounterStateFul> {
+class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKeepAliveClientMixin{
   int counter = 0;
   bool showPerformance = false;
   Color colorValue = Colors.pinkAccent;
@@ -38,7 +38,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
   String levelInfo =
       "CAUTION: Reach atleast 10 coins today not to downgrade to LEVEL 1";
   static const textSize = TextStyle(fontSize: 100, color: Colors.white);
-  final fontStyle = TextStyle(color: Colors.white, fontFamily: 'Railway');
+  final fontStyle = TextStyle(color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -203,6 +203,10 @@ class CounterStateLess extends State<IncrementCounterStateFul> {
       }
     });
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 
 
 }

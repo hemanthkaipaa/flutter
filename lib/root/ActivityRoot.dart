@@ -33,7 +33,7 @@ class RootStateFul extends StatefulWidget{
 
 }
 
-class RootStateLess extends State<RootStateFul>{
+class RootStateLess extends State<RootStateFul> with AutomaticKeepAliveClientMixin{
   static int selectionIndex=0;
   final PageController pageController = new PageController(
     initialPage: 0,
@@ -116,4 +116,9 @@ class RootStateLess extends State<RootStateFul>{
   void initState() {
     super.initState();
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
 }

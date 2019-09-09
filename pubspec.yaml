@@ -42,11 +42,9 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-    - family: Raleway
+    - family: RW
       fonts:
-        - asset: asserts/Raleway-Regular.ttf
         - asset: asserts/Raleway-Bold.ttf
-        - asset: asserts/Raleway-Light.ttf
 
 #    - family: Manjari
 #      fonts:
