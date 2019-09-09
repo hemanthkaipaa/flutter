@@ -59,21 +59,21 @@ class ShopStateLess extends State<ShopStateFul>
   Widget setupStaggeredGridView() {
     return new StaggeredGridView.countBuilder(
       shrinkWrap: false,
-      padding: EdgeInsets.all(14),
+
       crossAxisCount: 2, //as per your requirement
       itemCount: 8, //as per your requirement
       itemBuilder: (BuildContext context, int index) {
         if (shopList[index].brandID == '01') {
-          return setupTileWithImages(
-              shopList[index].brandDesc, shopList[index].imageLink); //your
-        } else {
-          return setupSplitTileWithImages(
-              shopList[index].brandDesc, shopList[index].imageLink); //your
+          return setupTileWithImages(shopList[index].brandDesc, shopList[index].imageLink); //your
+        } else if(shopList[index].brandID=='99'){
+           return setupFooterContainer();
+        }else{
+          return setupSplitTileWithImages(shopList[index].brandDesc, shopList[index].imageLink); //your
         }
       },
       staggeredTileBuilder: (int index) {
         if (shopList != null) {
-          if (shopList[index].brandID == '01') {
+          if (shopList[index].brandID == '01'||shopList[index].brandID == '99') {
             return new StaggeredTile.count(2, 2);
           } else {
             return new StaggeredTile.count(1, 1.2);
@@ -109,7 +109,9 @@ class ShopStateLess extends State<ShopStateFul>
   }
 
   Widget setupTileWithImages(String t1, String imageLink) {
-    return Card(
+    return Padding(
+        padding: EdgeInsets.fromLTRB(14,7,14,7),
+      child: Card(
         borderOnForeground: false,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: Colors.black,
@@ -123,59 +125,63 @@ class ShopStateLess extends State<ShopStateFul>
                 child: CachedNetworkImage(
                   imageUrl: imageLink,
                   placeholder: (context, url) =>
-                      new CircularProgressIndicator(),
+                  new CircularProgressIndicator(),
                   errorWidget: (context, url, error) => new Icon(Icons.error),
                   fit: BoxFit.cover,
                 )),
             Expanded(
                 child: Container(
-              height: 100,
-              color: Colors.black,
-              alignment: Alignment.center,
-              child: Text(
-                t1,
-                textAlign: TextAlign.center,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            ))
-          ],
-        ));
-  }
-
-  Widget setupSplitTileWithImages(String t1, String imageLink) {
-    return Card(
-        borderOnForeground: false,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Colors.black,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-                flex: 6,
-                child: CachedNetworkImage(
-                  imageUrl: imageLink,
-                  errorWidget: (context, url, error) => new Icon(Icons.error),
-                  fit: BoxFit.cover,
-                )),
-            Expanded(
-                flex: 2,
-                child: Container(
+                  height: 100,
                   color: Colors.black,
                   alignment: Alignment.center,
                   child: Text(
                     t1,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
+                    style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ))
           ],
-        ));
+        ),
+    ));
+  }
+
+  Widget setupSplitTileWithImages(String t1, String imageLink) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(14,7,14,7),
+      child:  Card(
+          borderOnForeground: false,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          color: Colors.black,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                  flex: 6,
+                  child: CachedNetworkImage(
+                    imageUrl: imageLink,
+                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                    fit: BoxFit.cover,
+                  )),
+              Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: Colors.black,
+                    alignment: Alignment.center,
+                    child: Text(
+                      t1,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12),
+                    ),
+                  ))
+            ],
+          )),
+    );
   }
 
   Widget setupFooterContainer() {
@@ -197,6 +203,7 @@ class ShopStateLess extends State<ShopStateFul>
                 ),
                 Text(
                   'Daily Rewards',
+                  textAlign:TextAlign.center,
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -204,6 +211,7 @@ class ShopStateLess extends State<ShopStateFul>
                 ),
                 Text(
                   'You have claimed all 4 rewards. Claim again tomorrow',
+                  textAlign:TextAlign.center,
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -238,6 +246,7 @@ class ShopBean {
   String brandID;
   String imageLink;
   ShopBean({this.brandID, this.brandDesc, this.imageLink});
+  ShopBean.Cons(this.brandID, this.brandDesc, this.imageLink);
 
   factory ShopBean.fromJSON(Map<String, dynamic> json) {
     return ShopBean(
