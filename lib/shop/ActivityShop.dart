@@ -38,6 +38,10 @@ class ShopStateLess extends State<ShopStateFul>
     with AutomaticKeepAliveClientMixin {
   final RefreshController _refreshController = RefreshController();
 
+  List<ShopBean> shopList = [];
+  List<ProductGroupBean> productGroupList = [];
+  List<Object> objectList = [];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -61,62 +65,32 @@ class ShopStateLess extends State<ShopStateFul>
   Widget setupStaggeredGridView() {
     return new StaggeredGridView.countBuilder(
       shrinkWrap: false,
-
       crossAxisCount: 2, //as per your requirement
-      itemCount: shopList.length, //as per your requirement
-      itemBuilder: (BuildContext context, int index) {
-        if (shopList[index].catID == '01') {
-          return setupTileWithImages(
-              shopList[index].brandDesc, shopList[index].imageLink); //your
-        } else if (shopList[index].catID == '03') {
-          return setupFooterContainer();
-        } else {
-          return setupSplitTileWithImages(
-              shopList[index].brandDesc, shopList[index].imageLink); //your
-        }
-      },
-      staggeredTileBuilder: (int index) {
-        if (shopList != null) {
-          if (shopList[index].catID == '01') {
-            return new StaggeredTile.count(2, 2);
-          } else if (shopList[index].catID == '03') {
-            return new StaggeredTile.count(2, 2);
-          } else {
-            return new StaggeredTile.count(1, 1.2);
-          }
-        } else {
-          return null;
-        }
-      },
+      itemCount: objectList.length, //as per your requirement
+      itemBuilder: itemConstructor,
+      staggeredTileBuilder:tileBuilder,
     );
   }
 
-  Widget setupTile(String t1) {
-    return Card(
-        child: Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text(t1, textAlign: TextAlign.center),
-      ],
-    ));
-  }
-
-  Widget setupTiles(String t1, String t2) {
-    return Card(
-        child: Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text(t1, textAlign: TextAlign.center),
-        Text(t2, textAlign: TextAlign.center),
-      ],
-    ));
+  Widget setupTitle(String t1, String t2) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(24,35,24,2),
+      child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text(t1, textAlign: TextAlign.start,style: TextStyle(fontSize: 16,color: Colors.white,fontWeight: FontWeight.bold),),
+              Text(t2, textAlign: TextAlign.start,style: TextStyle(fontSize: 12,color: Colors.white70,fontWeight: FontWeight.bold),),
+            ],
+          )
+      )
+    );
   }
 
   Widget setupTileWithImages(String t1, String imageLink) {
     return Padding(
-        padding: EdgeInsets.fromLTRB(14, 7, 14, 7),
+        padding: EdgeInsets.fromLTRB(14, 4, 14, 4),
         child: Card(
           borderOnForeground: false,
           clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -154,7 +128,7 @@ class ShopStateLess extends State<ShopStateFul>
 
   Widget setupSplitTileWithImages(String t1, String imageLink) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(14, 7, 14, 7),
+      padding: EdgeInsets.fromLTRB(14, 4, 14, 4),
       child: Card(
           borderOnForeground: false,
           clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -211,9 +185,9 @@ class ShopStateLess extends State<ShopStateFul>
                   'Daily Rewards',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                     ),
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   'You have claimed all 4 rewards. Claim again tomorrow',
@@ -230,12 +204,11 @@ class ShopStateLess extends State<ShopStateFul>
               color: Colors.black,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-               mainAxisAlignment: MainAxisAlignment.center,
-
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child:  Container(
+                    child: Container(
                       child: Padding(
                         padding: EdgeInsets.all(16),
                         child: Column(
@@ -245,7 +218,7 @@ class ShopStateLess extends State<ShopStateFul>
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 35,
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -262,69 +235,122 @@ class ShopStateLess extends State<ShopStateFul>
                       ),
                     ),
                   ),
-
-                  Container(height:60,child: VerticalDivider(color: Colors.white70)),
-                 Expanded(
-                   flex: 1,
-                   child:  Container(
-                     child: Padding(
-                       padding: EdgeInsets.all(16),
-                       child: Column(
-                         children: <Widget>[
-                           Text(
-                             '\$4.0',
-                             textAlign: TextAlign.center,
-                             style: TextStyle(
-                               color: Colors.white,
-                               fontSize: 35,
-                               fontWeight: FontWeight.bold,
-                             ),
-                           ),
-                           Text(
-                             'Earned',
-                             textAlign: TextAlign.center,
-                             style: TextStyle(
-                               color: Colors.white,
-                               fontSize: 14,
-                             ),
-                           ),
-                         ],
-                       ),
-                     ),
-                   ),
-                 )
+                  Container(
+                      height: 60,
+                      child: VerticalDivider(color: Colors.white70)),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              '\$4.0',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Earned',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               )),
           Container(
-            padding: EdgeInsets.all(24),
-                child: RaisedButton(
-                  color: Colors.black,
-                  padding: EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
-                  splashColor: Colors.white,
-                  child: new Text(
-                    "Watch Video",
-                    style: TextStyle(color: Colors.white,fontSize: 16),
-                  ),
-                  onPressed: onWatchVideo,
-                ),
+            padding: EdgeInsets.fromLTRB(24, 24, 24, 6),
+            child: RaisedButton(
+              color: Colors.black,
+              padding: EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(10.0)),
+              splashColor: Colors.white,
+              child: new Text(
+                "Get Reward",
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              onPressed: onWatchVideo,
+            ),
           ),
-          Text('please wait to claim the reward',textAlign: TextAlign.center,style: TextStyle(fontSize: 12),)
+          Text(
+            'please wait to claim the reward',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12),
+          )
         ],
       ),
     );
   }
 
-  List<ShopBean> shopList = [];
-  void getShopListAsync() async {
-    final response = await HTTP.get(fetchURL("shoplist"));
-    final List<ShopBean> responseParsed = jsonDecode(response.body)
-        .map<ShopBean>((json) => ShopBean.fromJSON(json))
-        .toList();
-    setState(() {
-      shopList.addAll(responseParsed);
-      shopList.add(new ShopBean.Cons('03', 'dummy', 'dummy'));
-    });
+  Widget itemConstructor(BuildContext context, int index){
+    var value;
+    ShopBean bean;
+    ProductGroupBean productGroupBean;
+    if(objectList[index] is ShopBean){
+      bean = objectList[index];
+      value = bean.catID;
+    }else{
+      productGroupBean = objectList[index];
+      value = productGroupBean.catID;
+    }
+    switch(value){
+      case "01":
+        if(bean!=null)
+        return setupTileWithImages(bean.brandDesc, bean.imageLink); //your
+        break;
+      case "02":
+        if(bean!=null)
+        return setupSplitTileWithImages(bean.brandDesc, bean.imageLink); //your
+        break;
+      case "03":
+        return setupFooterContainer();
+        break;
+      case "04":
+        if(productGroupBean!=null)
+        return setupTitle(productGroupBean.productGroupDesc, productGroupBean.subGroupDesc);
+        break;
+    }
+    return null;
+  }
+
+  StaggeredTile tileBuilder(int index){
+    var value;
+    ShopBean bean;
+    ProductGroupBean productGroupBean;
+    if(objectList[index] is ShopBean){
+      bean = objectList[index];
+      value = bean.catID;
+    }else{
+      productGroupBean = objectList[index];
+      value = productGroupBean.catID;
+    }
+    switch(value){
+      case "01":
+        return new StaggeredTile.count(2, 2);
+        break;
+      case "02":
+        return new StaggeredTile.count(1, 1.2);
+        break;
+      case "03":
+        return new StaggeredTile.count(2, 2);
+        break;
+      case "04":
+        return new StaggeredTile.count(2, 0.4);
+        break;
+    }
+    return null;
   }
 
   @override
@@ -334,6 +360,27 @@ class ShopStateLess extends State<ShopStateFul>
   void onWatchVideo() {
     setState(() {
       Utils.showMessage(context, 'you have rewarded with 1 coin', Colors.green);
+    });
+  }
+
+  /// get details from backend which includes the JSON Decode functionality.
+  /// in the end we have Added the dummy item to show the footer in setStateMethod
+  void getShopListAsync() async {
+    final response = await HTTP.get(fetchURL("productGroup"));
+    final List<ProductGroupBean> responseParsed = jsonDecode(response.body)
+        .map<ProductGroupBean>((json) => ProductGroupBean.fromJSON(json))
+        .toList();
+    productGroupList.addAll(responseParsed);
+    for(ProductGroupBean bean in productGroupList){
+      objectList.add(bean);
+      if(bean.shopList!=null&&bean.shopList.isNotEmpty){
+        for(ShopBean shopBean in bean.shopList){
+          objectList.add(shopBean);
+        }
+      }
+    }
+    setState(() {
+      objectList.add(new ShopBean.Cons('03', 'dummy', 'dummy'));
     });
   }
 }
@@ -356,4 +403,33 @@ class ShopBean {
         catDesc: json['catDesc'],
         catID: json['catID']);
   }
+}
+
+class ProductGroupBean {
+  String productID;
+  String productGroupDesc;
+  String subGroupDesc;
+  String catID;
+  String catDesc;
+  List<ShopBean> shopList;
+
+  ProductGroupBean(
+      {this.productID,
+      this.productGroupDesc,
+      this.subGroupDesc,
+      this.catID,
+      this.catDesc,
+      this.shopList});
+
+  factory ProductGroupBean.fromJSON(Map<String, dynamic> jsonData) {
+    return ProductGroupBean(
+      productID: jsonData['productID'],
+      productGroupDesc: jsonData['productGroupDesc'],
+      subGroupDesc: jsonData['subGroupDesc'],
+      catID: jsonData['catID'],
+      catDesc: jsonData['catDesc'],
+      shopList:  List<ShopBean>.from(jsonData['shoplist'].map((jsonData)=>ShopBean.fromJSON(jsonData)).toList()),
+    );
+  }
+
 }
