@@ -160,19 +160,19 @@ class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKee
                       Expanded(
                           child: IntrinsicHeight(
                               child: IntrinsicWidth(
-                        child: Utils.columnOne('3/4', 'Rewards'),
+                        child: columnOne('3/4', 'Rewards'),
                       ))),
                       Padding(padding: EdgeInsets.all(5),),
                       Expanded(
                           child: IntrinsicHeight(
                               child: IntrinsicWidth(
-                                  child: Utils.columnOne(
+                                  child: columnOne(
                                       "\$ 5", 'Invite a friend')))),
                       Padding(padding: EdgeInsets.all(5),),
                       Expanded(
                           child: IntrinsicHeight(
                               child: IntrinsicWidth(
-                                  child: Utils.columnOne('\$ 3242', 'Coins')))),
+                                  child: columnOne('\$ 3242', 'Coins')))),
                     ],
                   ),
                 ),
@@ -208,5 +208,60 @@ class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKee
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
+
+}
+Widget columnOne(String t1, String t2) {
+  return ClipRRect(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+    child: Container(
+      color: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            color: Colors.white,
+            child: Padding(
+                padding:
+                EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(t1,
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.black,
+                          backgroundColor: Colors.white,
+                          fontFamily: 'FJ',fontWeight: FontWeight.bold
+                      )),
+                )
+            ),
+          ),
+          IntrinsicHeight(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: double.infinity),
+                child: Container(
+                    height: 50,
+                    color: Colors.red,
+                    child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(t2 ,
+                              textAlign: TextAlign.center,
+                              textWidthBasis: TextWidthBasis.parent,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black,
+                                backgroundColor: Colors.red,
+                              )),
+                        ))),
+              )
+          )
+
+
+        ],
+      ),
+    ),
+  );
 
 }
