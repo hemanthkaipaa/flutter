@@ -13,9 +13,9 @@ class CustomWidget extends StatelessWidget {
     return MaterialApp(
       title: "Custom Widget",
       theme: ThemeData(
-          primaryColor: Colors.black,
-          primaryColorBrightness: Brightness.dark,
-         ),
+        primaryColor: Colors.black,
+        primaryColorBrightness: Brightness.dark,
+      ),
       home: IncrementCounterStateFul(),
     );
   }
@@ -29,7 +29,8 @@ class IncrementCounterStateFul extends StatefulWidget {
   }
 }
 
-class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKeepAliveClientMixin{
+class CounterStateLess extends State<IncrementCounterStateFul>
+    with AutomaticKeepAliveClientMixin {
   int counter = 0;
   bool showPerformance = false;
   Color colorValue = Colors.pinkAccent;
@@ -39,19 +40,25 @@ class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKee
       "CAUTION: Reach atleast 10 coins today not to downgrade to LEVEL 1";
   static const textSize = TextStyle(fontSize: 100, color: Colors.white);
   final fontStyle = TextStyle(color: Colors.white);
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+      Utils.getStoreInt(Utils.KEY_STORE_COUNT).then((value){
+        setState(() {
+          counter =value;
+        });
+      });
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black12,
           title: Text('Today', style: fontStyle),
           centerTitle: true,
         ),
-
-
         backgroundColor: Colors.black12,
         body: SingleChildScrollView(
             child: Container(
@@ -130,7 +137,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKee
                             Flexible(
                               child: Text(levelInfo,
                                   style: TextStyle(
-                                    fontSize: 12,
+                                      fontSize: 12,
                                       color: Colors.white54,
                                       letterSpacing: 1,
                                       wordSpacing: 1)),
@@ -162,13 +169,17 @@ class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKee
                               child: IntrinsicWidth(
                         child: columnOne('3/4', 'Rewards'),
                       ))),
-                      Padding(padding: EdgeInsets.all(5),),
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                      ),
                       Expanded(
                           child: IntrinsicHeight(
                               child: IntrinsicWidth(
-                                  child: columnOne(
-                                      "\$ 5", 'Invite a friend')))),
-                      Padding(padding: EdgeInsets.all(5),),
+                                  child:
+                                      columnOne("\$ 5", 'Invite a friend')))),
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                      ),
                       Expanded(
                           child: IntrinsicHeight(
                               child: IntrinsicWidth(
@@ -177,7 +188,6 @@ class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKee
                   ),
                 ),
               ),
-
             ],
           ),
         )));
@@ -190,6 +200,7 @@ class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKee
       if (counter % 2 == 0) {
         levelValue += 1;
       }
+      Utils.setStoreInt(Utils.KEY_STORE_COUNT, counter);
     });
   }
 
@@ -207,9 +218,8 @@ class CounterStateLess extends State<IncrementCounterStateFul> with AutomaticKee
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
-
-
 }
+
 Widget columnOne(String t1, String t2) {
   return ClipRRect(
     borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -222,8 +232,7 @@ Widget columnOne(String t1, String t2) {
           Container(
             color: Colors.white,
             child: Padding(
-                padding:
-                EdgeInsets.fromLTRB(10, 10, 10, 10),
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(t1,
@@ -231,37 +240,32 @@ Widget columnOne(String t1, String t2) {
                           fontSize: 30,
                           color: Colors.black,
                           backgroundColor: Colors.white,
-                          fontFamily: 'FJ',fontWeight: FontWeight.bold
-                      )),
-                )
-            ),
+                          fontFamily: 'FJ',
+                          fontWeight: FontWeight.bold)),
+                )),
           ),
           IntrinsicHeight(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: double.infinity),
-                child: Container(
-                    height: 50,
-                    color: Colors.red,
-                    child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(t2 ,
-                              textAlign: TextAlign.center,
-                              textWidthBasis: TextWidthBasis.parent,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                                backgroundColor: Colors.red,
-                              )),
-                        ))),
-              )
-          )
-
-
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: Container(
+                height: 50,
+                color: Colors.red,
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(t2,
+                          textAlign: TextAlign.center,
+                          textWidthBasis: TextWidthBasis.parent,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            backgroundColor: Colors.red,
+                          )),
+                    ))),
+          ))
         ],
       ),
     ),
   );
-
 }
