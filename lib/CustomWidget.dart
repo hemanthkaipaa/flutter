@@ -1,3 +1,4 @@
+import 'package:fit_kit/fit_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'utils/GlobalUtils.dart' as Utils;
@@ -31,7 +32,8 @@ class IncrementCounterStateFul extends StatefulWidget {
 
 class CounterStateLess extends State<IncrementCounterStateFul>
     with AutomaticKeepAliveClientMixin {
-  int counter = 0;
+  int totalSteps=0;
+  double counter = 0.0;
   bool showPerformance = false;
   Color colorValue = Colors.pinkAccent;
   Color highlightColor = Colors.red;
@@ -44,11 +46,18 @@ class CounterStateLess extends State<IncrementCounterStateFul>
   void initState() {
     // TODO: implement initState
     super.initState();
-      Utils.getStoreInt(Utils.KEY_STORE_COUNT).then((value){
-        setState(() {
-          counter =value;
-        });
+    readAll();
+    read();
+    Utils.getStoreInt(Utils.KEY_STORE_COUNT).then((value) {
+      setState(() {
+        totalSteps = value;
       });
+    });
+    Utils.getStoreDouble(Utils.KEY_POINT_COUNT).then((value) {
+      setState(() {
+        counter = value;
+      });
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -65,7 +74,7 @@ class CounterStateLess extends State<IncrementCounterStateFul>
           padding: EdgeInsets.all(16),
           child: Column(
             children: <Widget>[
-              Text("0012",
+              Text('$totalSteps',
                   style: TextStyle(
                       fontSize: 50, color: Colors.white, fontFamily: 'FJ'),
                   textAlign: TextAlign.center),
@@ -79,7 +88,7 @@ class CounterStateLess extends State<IncrementCounterStateFul>
               Text("Coins by Steps",
                   style: TextStyle(color: Colors.white70, fontSize: 16),
                   textAlign: TextAlign.center),
-              RaisedButton(
+             /* RaisedButton(
                   colorBrightness: Brightness.light,
                   onPressed: incrementCounter,
                   color: highlightColor,
@@ -103,7 +112,7 @@ class CounterStateLess extends State<IncrementCounterStateFul>
                             fontWeight: FontWeight.bold),
                       ),
                     ],
-                  )),
+                  )),*/
               InputDecorator(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -193,17 +202,26 @@ class CounterStateLess extends State<IncrementCounterStateFul>
         )));
   }
 
-  void incrementCounter() {
-    setState(() {
-      colorValue = Colors.teal[200];
-      counter += 1;
-      if (counter % 2 == 0) {
-        levelValue += 1;
+
+  void read() async {
+    final now = DateTime.now();
+    final lastMidnight = new DateTime(now.year, now.month, now.day);
+    final results = await FitKit.read(DataType.STEP_COUNT, lastMidnight, now);
+    Future.value(results).then((value){
+      int values=0;
+      List<FitData> data =value;
+      for(FitData bean in data){
+        assert (bean!=null);
+        values += bean.value;
+        print(values);
       }
-      Utils.setStoreInt(Utils.KEY_STORE_COUNT, counter);
+      Utils.setStoreInt(Utils.KEY_STORE_COUNT, values);
+      Utils.setStoreDouble(Utils.KEY_POINT_COUNT, Utils.returnStepCalculation(values));
+      setState(() {
+        totalSteps = values;
+      });
     });
   }
-
   void onHighlighted(bool) {
     setState(() {
       if (bool) {
@@ -268,4 +286,30 @@ Widget columnOne(String t1, String t2) {
       ),
     ),
   );
+}
+
+
+Future<void> readAll() async {
+  String results = "";
+
+  try {
+    final permissions = await FitKit.requestPermissions(DataType.values);
+    if (!permissions) {
+      results = "User declined permissions";
+    } else {
+      for (DataType type in DataType.values) {
+        final data = await FitKit.read(
+          type,
+          DateTime.now().subtract(Duration(days: 5)),
+          DateTime.now(),
+        );
+
+        final result = "Type $type = ${data.length} $data\n\n\n";
+        results += result;
+        debugPrint(result);
+      }
+    }
+  } catch (e) {
+    results = 'Failed to read all values. $e';
+  }
 }

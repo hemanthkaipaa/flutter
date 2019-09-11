@@ -26,22 +26,12 @@ Color primaryAccent(){
 
 String profileImageURL ="https://vpgrealty.ca/wp-content/uploads/2016/06/eric-agent-profile-image.jpg";
 
-void showMessage(BuildContext buildContext, String message, Color color) {
-  showToast(message,
-      context: buildContext,
-      position: StyledToastPosition.top,
-      borderRadius: BorderRadius.circular(5.0),
-      textPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-      animation: StyledToastAnimation.slideFromTopFade,
-      reverseAnimation: StyledToastAnimation.slideToTopFade,
-      duration: Duration(seconds: 3),
-      backgroundColor: color);
-}
 /// shared preferences which stores short size data persistently
 /// below are all the set methods with different data types.
 ///----------------------shared prefs KEYS-----------------------------
 
 const String KEY_STORE_COUNT="KEY_STORE_COUNT";
+const String KEY_POINT_COUNT="KEY_POINT_COUNT";
 
 ///---------------------shared preferences-----------------------------
 Future<bool> setStoreBool(String key,bool isBoolean) async {
@@ -77,4 +67,27 @@ Future<int> getStoreInt(String key) async {
 Future<double> getStoreDouble(String key) async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getDouble(key)??0.0;
+}
+
+///----------------------------------------------------------------Global Constants------------------------------------------------------
+const int OUT_DOOR_STEPS_PERCENTAGE = 800;
+
+/// ----------------------------------------------------------------END of GLOBAL CONSTANTS-----------------------------------------------
+///-------------------------------------------------------------------GLOBAL METHODS------------------------------------------------------
+ double returnStepCalculation(int totalSteps){
+   double value =totalSteps/OUT_DOOR_STEPS_PERCENTAGE;
+   double roundedValue = double.parse(value.toStringAsFixed(2));
+  return roundedValue;
+}
+
+void showMessage(BuildContext buildContext, String message, Color color) {
+  showToast(message,
+      context: buildContext,
+      position: StyledToastPosition.top,
+      borderRadius: BorderRadius.circular(5.0),
+      textPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      animation: StyledToastAnimation.slideFromTopFade,
+      reverseAnimation: StyledToastAnimation.slideToTopFade,
+      duration: Duration(seconds: 3),
+      backgroundColor: color);
 }
