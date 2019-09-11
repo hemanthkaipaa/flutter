@@ -32,7 +32,7 @@ class IncrementCounterStateFul extends StatefulWidget {
 
 class CounterStateLess extends State<IncrementCounterStateFul>
     with AutomaticKeepAliveClientMixin {
-  int totalSteps=0;
+  int totalSteps = 0;
   double counter = 0.0;
   bool showPerformance = false;
   Color colorValue = Colors.pinkAccent;
@@ -42,23 +42,13 @@ class CounterStateLess extends State<IncrementCounterStateFul>
       "CAUTION: Reach atleast 10 coins today not to downgrade to LEVEL 1";
   static const textSize = TextStyle(fontSize: 100, color: Colors.white);
   final fontStyle = TextStyle(color: Colors.white);
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     readAll();
-    read();
-    Utils.getStoreInt(Utils.KEY_STORE_COUNT).then((value) {
-      setState(() {
-        totalSteps = value;
-      });
-    });
-    Utils.getStoreDouble(Utils.KEY_POINT_COUNT).then((value) {
-      setState(() {
-        counter = value;
-      });
-    });
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -88,7 +78,7 @@ class CounterStateLess extends State<IncrementCounterStateFul>
               Text("Coins by Steps",
                   style: TextStyle(color: Colors.white70, fontSize: 16),
                   textAlign: TextAlign.center),
-             /* RaisedButton(
+              /* RaisedButton(
                   colorBrightness: Brightness.light,
                   onPressed: incrementCounter,
                   color: highlightColor,
@@ -202,26 +192,27 @@ class CounterStateLess extends State<IncrementCounterStateFul>
         )));
   }
 
-
   void read() async {
     final now = DateTime.now();
     final lastMidnight = new DateTime(now.year, now.month, now.day);
     final results = await FitKit.read(DataType.STEP_COUNT, lastMidnight, now);
-    Future.value(results).then((value){
-      int values=0;
-      List<FitData> data =value;
-      for(FitData bean in data){
-        assert (bean!=null);
+    Future.value(results).then((value) {
+      int values = 0;
+      List<FitData> data = value;
+      for (FitData bean in data) {
+        assert(bean != null);
         values += bean.value;
         print(values);
       }
       Utils.setStoreInt(Utils.KEY_STORE_COUNT, values);
-      Utils.setStoreDouble(Utils.KEY_POINT_COUNT, Utils.returnStepCalculation(values));
+      Utils.setStoreDouble(
+          Utils.KEY_POINT_COUNT, Utils.returnStepCalculation(values));
       setState(() {
         totalSteps = values;
       });
     });
   }
+
   void onHighlighted(bool) {
     setState(() {
       if (bool) {
@@ -231,6 +222,41 @@ class CounterStateLess extends State<IncrementCounterStateFul>
         highlightColor = Colors.red;
       }
     });
+  }
+
+  Future<void> readAll() async {
+    String results = "";
+    try {
+      final permissions = await FitKit.requestPermissions(DataType.values);
+      if (!permissions) {
+        results = "User declined permissions";
+        Utils.showMessage(context, results, Colors.red);
+      } else {
+        checkPermission();
+      }
+    } catch (e) {
+      results = 'Failed to read all values. $e';
+      Utils.showMessage(context, results, Colors.red);
+    }
+  }
+
+  void checkPermission() {
+    try {
+      read();
+      Utils.getStoreInt(Utils.KEY_STORE_COUNT).then((value) {
+            setState(() {
+              totalSteps = value;
+            });
+          });
+      Utils.getStoreDouble(Utils.KEY_POINT_COUNT).then((value) {
+            setState(() {
+              counter = value;
+            });
+          });
+    } catch (e) {
+      print(e);
+      Utils.showMessage(context, e, Colors.red);
+    }
   }
 
   @override
@@ -289,27 +315,3 @@ Widget columnOne(String t1, String t2) {
 }
 
 
-Future<void> readAll() async {
-  String results = "";
-
-  try {
-    final permissions = await FitKit.requestPermissions(DataType.values);
-    if (!permissions) {
-      results = "User declined permissions";
-    } else {
-      for (DataType type in DataType.values) {
-        final data = await FitKit.read(
-          type,
-          DateTime.now().subtract(Duration(days: 5)),
-          DateTime.now(),
-        );
-
-        final result = "Type $type = ${data.length} $data\n\n\n";
-        results += result;
-        debugPrint(result);
-      }
-    }
-  } catch (e) {
-    results = 'Failed to read all values. $e';
-  }
-}

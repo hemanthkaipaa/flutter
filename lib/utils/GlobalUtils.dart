@@ -62,7 +62,7 @@ Future<String> getStoreString(String key) async {
 }
 Future<int> getStoreInt(String key) async {
   final prefs = await SharedPreferences.getInstance();
-  return prefs.getInt(key).toInt()??0;
+  return prefs.getInt(key)??0;
 }
 Future<double> getStoreDouble(String key) async {
   final prefs = await SharedPreferences.getInstance();
