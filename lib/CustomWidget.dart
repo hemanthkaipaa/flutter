@@ -78,31 +78,6 @@ class CounterStateLess extends State<IncrementCounterStateFul>
               Text("Coins by Steps",
                   style: TextStyle(color: Colors.white70, fontSize: 16),
                   textAlign: TextAlign.center),
-              /* RaisedButton(
-                  colorBrightness: Brightness.light,
-                  onPressed: incrementCounter,
-                  color: highlightColor,
-                  onHighlightChanged: onHighlighted,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.black87,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(2),
-                      ),
-                      Text(
-                        'Count',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 20,
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  )),*/
               InputDecorator(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -246,11 +221,11 @@ class CounterStateLess extends State<IncrementCounterStateFul>
       Utils.getStoreInt(Utils.KEY_STORE_COUNT).then((value) {
             setState(() {
               totalSteps = value;
-            });
-          });
-      Utils.getStoreDouble(Utils.KEY_POINT_COUNT).then((value) {
-            setState(() {
-              counter = value;
+              Utils.getStoreDouble(Utils.KEY_POINT_COUNT).then((value) {
+                setState(() {
+                  counter = value;
+                });
+              });
             });
           });
     } catch (e) {

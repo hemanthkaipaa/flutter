@@ -177,9 +177,14 @@ class ShopStateLess extends State<ShopStateFul>
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Icon(
+               /* Icon(
                   Icons.bookmark_border,
                   size: 42,
+                ),*/
+               CachedNetworkImage(
+                 height: 60,
+                 width: 60,
+                 imageUrl: "https://i.gifer.com/4WqQ.gif",
                 ),
                 Text(
                   'Daily Rewards',
