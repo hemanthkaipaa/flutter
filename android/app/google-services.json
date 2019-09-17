@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "441301646739",
+    "firebase_url": "https://arched-forest-252617.firebaseio.com",
+    "project_id": "arched-forest-252617",
+    "storage_bucket": "arched-forest-252617.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441301646739:android:6085bb8959c39cca963c66",
+        "android_client_info": {
+          "package_name": "hemanth.testdrive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441301646739-r8f72phftmn6g9h23necc8o3cohnuoth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxt2w-pO6hcANQz2MkzwMF6BEqEu5oxy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441301646739-r8f72phftmn6g9h23necc8o3cohnuoth.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

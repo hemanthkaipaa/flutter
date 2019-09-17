@@ -40,7 +40,7 @@ class ProfileStateLess extends State<ProfileStateFul> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: rootContainer(),
+      body: SingleChildScrollView(child:rootContainer(),)
     );
   }
 
@@ -142,7 +142,7 @@ class ProfileStateLess extends State<ProfileStateFul> {
                                 fontSize: 24,
                                 color: Colors.white,
                                 letterSpacing: 1,
-                                fontWeight: FontWeight.bold)))
+                                fontWeight: FontWeight.bold, fontFamily: 'Gobold_Bold',)))
                   ],
                 ),
               )),
@@ -166,7 +166,7 @@ class ProfileStateLess extends State<ProfileStateFul> {
                                 fontSize: 10,
                                 color: Colors.black,
                                 letterSpacing: 1,
-                                fontWeight: FontWeight.bold))),
+                                fontWeight: FontWeight.bold, fontFamily: 'Gobold_Bold',))),
                     Padding(
                         padding: EdgeInsets.fromLTRB(0, 4, 0, 12),
                         child: Text('3',
@@ -175,7 +175,7 @@ class ProfileStateLess extends State<ProfileStateFul> {
                                 fontSize: 24,
                                 color: Colors.black,
                                 letterSpacing: 1,
-                                fontWeight: FontWeight.bold)))
+                                fontWeight: FontWeight.bold, fontFamily: 'Gobold_Bold',)))
                   ],
                 ),
               )),
@@ -207,7 +207,7 @@ class ProfileStateLess extends State<ProfileStateFul> {
                                 fontSize: 24,
                                 color: Colors.white,
                                 letterSpacing: 1,
-                                fontWeight: FontWeight.bold)))
+                                fontWeight: FontWeight.bold, fontFamily: 'Gobold_Bold',)))
                   ],
                 ),
               )),
@@ -252,7 +252,7 @@ class ProfileStateLess extends State<ProfileStateFul> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold, fontFamily: 'Gobold_Bold'),
                 ),
               ),
               Padding(
@@ -271,8 +271,8 @@ class ProfileStateLess extends State<ProfileStateFul> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold, fontFamily: 'Gobold_Bold'),
                 ),
               ),
               Padding(
@@ -299,8 +299,8 @@ class ProfileStateLess extends State<ProfileStateFul> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold, fontFamily: 'Gobold_Bold',),
                 ),
               ),
               Padding(
@@ -319,8 +319,9 @@ class ProfileStateLess extends State<ProfileStateFul> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold, fontFamily: 'Gobold_Bold',),
+
                 ),
               ),
               Padding(

@@ -33,14 +33,13 @@ class IncrementCounterStateFul extends StatefulWidget {
 class CounterStateLess extends State<IncrementCounterStateFul>
     with AutomaticKeepAliveClientMixin {
   int totalSteps = 0;
-  double counter = 0.0;
+  String counter="0.0";
   bool showPerformance = false;
-  Color colorValue = Colors.pinkAccent;
+  Color colorValue = Colors.red;
   Color highlightColor = Colors.red;
   int levelValue = 2;
   String levelInfo =
       "CAUTION: Reach atleast 10 coins today not to downgrade to LEVEL 1";
-  static const textSize = TextStyle(fontSize: 100, color: Colors.white);
   final fontStyle = TextStyle(color: Colors.white);
   @override
   void initState() {
@@ -66,18 +65,23 @@ class CounterStateLess extends State<IncrementCounterStateFul>
             children: <Widget>[
               Text('$totalSteps',
                   style: TextStyle(
-                      fontSize: 50, color: Colors.white, fontFamily: 'FJ'),
+                      fontSize: 50,
+                      color: Colors.white,
+                      fontFamily: Utils.numberFontFamily),
                   textAlign: TextAlign.center),
               Text("Total Steps",
                   style: TextStyle(color: Colors.white70, fontSize: 16),
                   textAlign: TextAlign.center),
               Text('$counter',
                   style: TextStyle(
-                      fontSize: 100, color: colorValue, fontFamily: 'FJ'),
+                      fontSize: 80,
+                      color: colorValue,
+                      fontFamily: Utils.numberFontFamily),
                   textAlign: TextAlign.center),
               Text("Coins by Steps",
                   style: TextStyle(color: Colors.white70, fontSize: 16),
                   textAlign: TextAlign.center),
+              Padding(padding: EdgeInsets.all(8)),
               InputDecorator(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -106,7 +110,7 @@ class CounterStateLess extends State<IncrementCounterStateFul>
                                   style: TextStyle(
                                       fontSize: 25,
                                       color: Colors.green,
-                                      fontFamily: 'FJ')),
+                                      fontFamily: Utils.numberFontFamily)),
                             )),
                             Flexible(
                               child: Text(levelInfo,
@@ -182,8 +186,20 @@ class CounterStateLess extends State<IncrementCounterStateFul>
       Utils.setStoreInt(Utils.KEY_STORE_COUNT, values);
       Utils.setStoreDouble(
           Utils.KEY_POINT_COUNT, Utils.returnStepCalculation(values));
+      Utils.getStoreString(Utils.KEY_EMAIL_ID).then((value) {
+        print(value);
+      });
       setState(() {
-        totalSteps = values;
+        Utils.getStoreInt(Utils.KEY_STORE_COUNT).then((value) {
+          setState(() {
+            totalSteps = value;
+            Utils.getStoreDouble(Utils.KEY_POINT_COUNT).then((value) {
+              setState(() {
+                counter = Utils.decimalFormat(value);
+              });
+            });
+          });
+        });
       });
     });
   }
@@ -218,16 +234,6 @@ class CounterStateLess extends State<IncrementCounterStateFul>
   void checkPermission() {
     try {
       read();
-      Utils.getStoreInt(Utils.KEY_STORE_COUNT).then((value) {
-            setState(() {
-              totalSteps = value;
-              Utils.getStoreDouble(Utils.KEY_POINT_COUNT).then((value) {
-                setState(() {
-                  counter = value;
-                });
-              });
-            });
-          });
     } catch (e) {
       print(e);
       Utils.showMessage(context, e, Colors.red);
@@ -251,15 +257,15 @@ Widget columnOne(String t1, String t2) {
           Container(
             color: Colors.white,
             child: Padding(
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                padding: EdgeInsets.fromLTRB(4, 10, 4, 10),
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(t1,
                       style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 26,
                           color: Colors.black,
                           backgroundColor: Colors.white,
-                          fontFamily: 'FJ',
+                          fontFamily: Utils.numberFontFamily,
                           fontWeight: FontWeight.bold)),
                 )),
           ),
@@ -288,5 +294,3 @@ Widget columnOne(String t1, String t2) {
     ),
   );
 }
-
-

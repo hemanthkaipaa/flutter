@@ -1,13 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'SignIn.dart';
 import 'package:testdrive/root/ActivityRoot.dart' as Root;
+import 'package:testdrive/utils/GlobalUtils.dart' as Utils;
 
-void main(){
-  runApp(new SignInRootWidget());
+Future<void> main() async {
+  String value;
+  Utils.getStoreString(Utils.KEY_EMAIL_ID).then((onValue){
+    value =onValue;
+  });
+  if(value!=null&&value.toString().isNotEmpty){
+    runApp(Root.Root());
+  }else{
+    runApp(new SignInRootWidget());
+  }
 }
-class SignInRootWidget extends StatelessWidget{
+
+class SignInRootWidget extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,13 +32,14 @@ class SignInRootWidget extends StatelessWidget{
     );
   }
 }
-class SignInStateFul extends StatefulWidget{
+
+class SignInStateFul extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return new SignInStateLess();
   }
-
 }
 
 class SignInStateLess extends State<SignInStateFul>{
@@ -35,32 +47,42 @@ class SignInStateLess extends State<SignInStateFul>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
+      appBar: GradientAppBar(
         title: Text('SignIn'),
         centerTitle: true,
-        backgroundColor: Colors.black,
+       gradient: LinearGradient(
+           begin: Alignment.topRight,
+           end: Alignment.bottomLeft,
+           colors: [Colors.indigo, Colors.cyan])
       ),
-      body: Container(color: Colors.white,child: signInContainer(),),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Colors.blue, Colors.red])),
+        child: signInContainer(),
+      ),
     );
   }
 
-  Widget signInContainer(){
-    return
-      Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FlutterLogo(size: 150),
-            SizedBox(height: 50),
-            _signInButton(),
-          ],
-        ),
-      );
+  Widget signInContainer() {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Padding(padding: EdgeInsets.all(16),child:  _signInButton(),)
+
+        ],
+      ),
+    );
   }
+
   Widget _signInButton() {
     return OutlineButton(
-      splashColor: Colors.grey,
+      splashColor: Colors.blue,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
           Navigator.of(context).push(
@@ -74,22 +96,26 @@ class SignInStateLess extends State<SignInStateFul>{
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       highlightElevation: 0,
-      borderSide: BorderSide(color: Colors.grey),
+      borderSide: BorderSide(color: Colors.black87),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CachedNetworkImage(imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Google_Plus_logo_2015.svg/1024px-Google_Plus_logo_2015.svg.png",
-              height: 30,width: 30,),
+            CachedNetworkImage(
+              imageUrl:
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Google_Plus_logo_2015.svg/1024px-Google_Plus_logo_2015.svg.png",
+              height: 40,
+              width: 40,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
                 'Sign in with Google',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
               ),
             )
