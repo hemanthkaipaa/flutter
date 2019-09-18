@@ -5,16 +5,16 @@ import 'SignIn.dart';
 import 'package:testdrive/root/ActivityRoot.dart' as Root;
 import 'package:testdrive/utils/GlobalUtils.dart' as Utils;
 
-Future<void> main() async {
-  String value;
-  Utils.getStoreString(Utils.KEY_EMAIL_ID).then((onValue){
-    value =onValue;
+main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Utils.getStoreString(Utils.KEY_EMAIL_ID).then((value){
+    final String onValue=value;
+    if(onValue!=null&&onValue.toString().isNotEmpty){
+      runApp(Root.Root());
+    }else{
+      runApp(new SignInRootWidget());
+    }
   });
-  if(value!=null&&value.toString().isNotEmpty){
-    runApp(Root.Root());
-  }else{
-    runApp(new SignInRootWidget());
-  }
 }
 
 class SignInRootWidget extends StatelessWidget {
@@ -53,30 +53,28 @@ class SignInStateLess extends State<SignInStateFul>{
        gradient: LinearGradient(
            begin: Alignment.topRight,
            end: Alignment.bottomLeft,
-           colors: [Colors.indigo, Colors.cyan])
+           colors: [Colors.greenAccent, Colors.green])
       ),
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.blue, Colors.red])),
+                colors: [Colors.blueGrey, Colors.red])),
         child: signInContainer(),
       ),
     );
   }
 
   Widget signInContainer() {
-    return Center(
-      child: Column(
+    return Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          CachedNetworkImage(imageUrl: "https://cdn.dribbble.com/users/448430/screenshots/1405286/jajawalkingrunning_gif_3.gif",fit: BoxFit.fill,),
           Padding(padding: EdgeInsets.all(16),child:  _signInButton(),)
 
         ],
-      ),
     );
   }
 
