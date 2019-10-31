@@ -35,8 +35,8 @@ class CounterStateLess extends State<IncrementCounterStateFul>
   int totalSteps = 0;
   String counter="0.0";
   bool showPerformance = false;
-  Color colorValue = Colors.red;
-  Color highlightColor = Colors.red;
+  Color colorValue = Colors.indigo;
+  Color highlightColor = Colors.indigo;
   int levelValue = 2;
   String levelInfo =
       "CAUTION: Reach atleast 10 coins today not to downgrade to LEVEL 1";
@@ -53,121 +53,146 @@ class CounterStateLess extends State<IncrementCounterStateFul>
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black12,
+          backgroundColor: Colors.black,
           title: Text('Today', style: fontStyle),
           centerTitle: true,
         ),
-        backgroundColor: Colors.black12,
+        backgroundColor: Colors.black,
         body: SingleChildScrollView(
             child: Container(
           padding: EdgeInsets.all(16),
-          child: Column(
+          child:Column(
             children: <Widget>[
-              Text('$totalSteps',
-                  style: TextStyle(
-                      fontSize: 50,
-                      color: Colors.white,
-                      fontFamily: Utils.numberFontFamily),
-                  textAlign: TextAlign.center),
-              Text("Total Steps",
-                  style: TextStyle(color: Colors.white70, fontSize: 16),
-                  textAlign: TextAlign.center),
-              Text('$counter',
-                  style: TextStyle(
-                      fontSize: 80,
-                      color: colorValue,
-                      fontFamily: Utils.numberFontFamily),
-                  textAlign: TextAlign.center),
-              Text("Coins by Steps",
-                  style: TextStyle(color: Colors.white70, fontSize: 16),
-                  textAlign: TextAlign.center),
-              Padding(padding: EdgeInsets.all(8)),
-              InputDecorator(
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.white54),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+              Container(
+                decoration:BoxDecoration(
+                    color: Colors.black,
+                    border: Border.all(color: Colors.indigo,width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+
+                        Text('$totalSteps',
+                            style: TextStyle(
+                                fontSize: 50,
+                                color: Colors.white,
+                                fontFamily: Utils.numberFontFamily),
+                            textAlign: TextAlign.center),
+                        Text("Total Steps",
+                            style: TextStyle(color: Colors.white70, fontSize: 16),
+                            textAlign: TextAlign.center),
+                        Text('$counter',
+                            style: TextStyle(
+                                fontSize: 80,
+                                color: colorValue,
+                                fontFamily: Utils.numberFontFamily),
+                            textAlign: TextAlign.center),
+                        Text("Coins by Steps",
+                            style: TextStyle(color: Colors.white70, fontSize: 16),
+                            textAlign: TextAlign.center),
+                      ],
                     ),
-                    labelText: 'YOU ARE ON',
-                    labelStyle: TextStyle(
-                        color: Colors.white54, fontSize: 12, letterSpacing: 1)),
-                child: Container(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Flexible(
-                        flex: 3,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Flexible(
-                                child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text('LEVEL $levelValue',
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.green,
-                                      fontFamily: Utils.numberFontFamily)),
-                            )),
-                            Flexible(
-                              child: Text(levelInfo,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white54,
-                                      letterSpacing: 1,
-                                      wordSpacing: 1)),
-                            )
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                          flex: 1,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Icon(
-                              Icons.ac_unit,
-                              color: Colors.red,
-                            ),
-                          ))
-                    ],
-                  ),
-                ),
+                  ],
+                )
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
-                child: Container(
-                  color: Colors.black,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: IntrinsicHeight(
-                              child: IntrinsicWidth(
-                        child: columnOne('3/4', 'Rewards'),
-                      ))),
-                      Padding(
-                        padding: EdgeInsets.all(5),
+              Column(
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.all(8)),
+                  InputDecorator(
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 1, color: Colors.white54),
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                        ),
+                        labelText: 'YOU ARE ON',
+                        labelStyle: TextStyle(
+                            color: Colors.white54, fontSize: 12, letterSpacing: 1)),
+                    child: Container(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            flex: 3,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Flexible(
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text('LEVEL $levelValue',
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.green,
+                                              fontFamily: Utils.numberFontFamily)),
+                                    )),
+                                Flexible(
+                                  child: Text(levelInfo,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white54,
+                                          letterSpacing: 1,
+                                          wordSpacing: 1)),
+                                )
+                              ],
+                            ),
+                          ),
+                          Flexible(
+                              flex: 1,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(
+                                  Icons.ac_unit,
+                                  color: Colors.red,
+                                ),
+                              ))
+                        ],
                       ),
-                      Expanded(
-                          child: IntrinsicHeight(
-                              child: IntrinsicWidth(
-                                  child:
-                                      columnOne("\$ 5", 'Invite a friend')))),
-                      Padding(
-                        padding: EdgeInsets.all(5),
-                      ),
-                      Expanded(
-                          child: IntrinsicHeight(
-                              child: IntrinsicWidth(
-                                  child: columnOne('\$ 3242', 'Coins')))),
-                    ],
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
+                    child: Container(
+                      color: Colors.black,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: IntrinsicHeight(
+                                  child: IntrinsicWidth(
+                                    child: columnOne('3/4', 'Rewards'),
+                                  ))),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          Expanded(
+                              child: IntrinsicHeight(
+                                  child: IntrinsicWidth(
+                                      child:
+                                      columnOne("\$ 5", 'Invite a friend')))),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          Expanded(
+                              child: IntrinsicHeight(
+                                  child: IntrinsicWidth(
+                                      child: columnOne('\$ 3242', 'Coins')))),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
-          ),
+          )
+
         )));
   }
 
