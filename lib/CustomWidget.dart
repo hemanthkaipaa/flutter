@@ -1,7 +1,10 @@
 import 'package:fit_kit/fit_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'utils/GlobalUtils.dart' as Utils;
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+
 
 void main() {
   runApp(CustomWidget());
@@ -31,7 +34,7 @@ class IncrementCounterStateFul extends StatefulWidget {
 }
 
 class CounterStateLess extends State<IncrementCounterStateFul>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin,SingleTickerProviderStateMixin {
   int totalSteps = 0;
   String counter="0.0";
   bool showPerformance = false;
@@ -41,11 +44,26 @@ class CounterStateLess extends State<IncrementCounterStateFul>
   String levelInfo =
       "CAUTION: Reach atleast 10 coins today not to downgrade to LEVEL 1";
   final fontStyle = TextStyle(color: Colors.white);
+  AnimationController _animationController;
+  double percentage=50;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 10),
+    );
+
+    _animationController.addListener(() => setState(() {}));
+    _animationController.repeat();
     readAll();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -60,20 +78,25 @@ class CounterStateLess extends State<IncrementCounterStateFul>
         backgroundColor: Colors.black,
         body: SingleChildScrollView(
             child: Container(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(4),
           child:Column(
             children: <Widget>[
               Container(
                 decoration:BoxDecoration(
                     color: Colors.black,
-                    border: Border.all(color: Colors.indigo,width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(10))
+                    border: Border.all(color: Colors.black,width: 0.5),
+                    borderRadius: BorderRadius.all(Radius.circular(16))
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Container(
+                        width: 100,
+                        height: 200,
+                        padding: EdgeInsets.symmetric(horizontal: 24.0),
+                        child: liquidIndicator(percentage,_animationController)
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -96,6 +119,8 @@ class CounterStateLess extends State<IncrementCounterStateFul>
                         Text("Coins by Steps",
                             style: TextStyle(color: Colors.white70, fontSize: 16),
                             textAlign: TextAlign.center),
+//                        circularBar()
+
                       ],
                     ),
                   ],
@@ -318,4 +343,53 @@ Widget columnOne(String t1, String t2) {
       ),
     ),
   );
+}
+
+Widget circularBar(){
+  final slider = SleekCircularSlider(
+    appearance: CircularSliderAppearance(
+        size:200,
+        angleRange:360,
+        animationEnabled:true,
+    ),
+    min: 0,
+    max: 100,
+    initialValue: 0,
+    onChange: (double value) {
+      // callback providing a value while its being changed (with a pan gesture)
+    },
+    onChangeStart: (double startValue) {
+      // callback providing a starting value (when a pan gesture starts)
+    },
+    onChangeEnd: (double endValue) {
+      // ucallback providing an ending value (when a pan gesture ends)
+    },
+    innerWidget: (double value) {
+      return Text("$value",style:TextStyle(color:Colors.white54),);
+    },
+  );
+  slider.onChangeStart(12);
+  return slider;
+}
+
+Widget liquidIndicator(percentage,_animationController) {
+
+  final slider = LiquidLinearProgressIndicator(
+    value:percentage/100 ,
+    backgroundColor: Colors.white,
+    valueColor: AlwaysStoppedAnimation(Colors.indigo),
+    borderRadius: 40,
+    direction: Axis.vertical,
+    center: Text(
+      "${percentage.toStringAsFixed(0)}%",
+      style: TextStyle(
+        color: Colors.lightBlueAccent,
+        fontSize: 20.0,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    );
+
+
+  return slider;
 }

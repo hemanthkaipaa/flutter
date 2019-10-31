@@ -71,7 +71,6 @@ class SignInStateLess extends State<SignInStateFul>{
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          CachedNetworkImage(imageUrl: "https://cdn.dribbble.com/users/448430/screenshots/1405286/jajawalkingrunning_gif_3.gif",fit: BoxFit.fill,),
           Padding(padding: EdgeInsets.all(16),child:  _signInButton(),)
 
         ],
