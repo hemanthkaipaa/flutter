@@ -1,22 +1,35 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:testdrive/CustomWidget.dart';
 import 'package:testdrive/coins/ActivityCoins.dart';
 import 'package:testdrive/friends/ActivityFriends.dart';
 import 'package:testdrive/profile/ActivityProfile.dart';
 import 'package:testdrive/shop/ActivityShop.dart';
+import 'package:testdrive/utils/AppTheme.dart';
 void main(){
-  runApp(new Root());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]) .then((_) => runApp(new Root()));
 }
 
 class Root extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor:Colors.transparent,
+      statusBarIconBrightness:Brightness.dark,
+      statusBarBrightness: Platform.isAndroid ? Brightness.dark : Brightness.light,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarDividerColor: Colors.grey,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));
     // TODO: implement build
     return MaterialApp(
+      title: 'Xfit',
       theme: ThemeData(
-        primaryColor: Colors.black,
-        primaryColorBrightness: Brightness.dark,
-        fontFamily: 'Railway'
+        primarySwatch: Colors.blue,
+        textTheme: AppTheme.textTheme,
+        platform: TargetPlatform.android,
       ),
       home: RootStateFul(),
     );
