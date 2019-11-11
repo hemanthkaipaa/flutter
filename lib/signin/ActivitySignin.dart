@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:testdrive/ActivityRoot.dart';
 import 'SignIn.dart';
-import 'package:testdrive/root/ActivityRoot.dart' as Root;
 import 'package:testdrive/utils/GlobalUtils.dart' as Utils;
 
 main() async {
@@ -10,7 +10,7 @@ main() async {
   await Utils.getStoreString(Utils.KEY_EMAIL_ID).then((value){
     final String onValue=value;
     if(onValue!=null&&onValue.toString().isNotEmpty){
-      runApp(Root.Root());
+      runApp(Root());
     }else{
       runApp(new SignInRootWidget());
     }
@@ -85,7 +85,7 @@ class SignInStateLess extends State<SignInStateFul>{
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return Root.RootStateFul();
+                return Root();
               },
             ),
           );
