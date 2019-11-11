@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:testdrive/home/HomeScreen.dart';
+import 'package:testdrive/home/HomeActivity.dart';
 import 'package:testdrive/utils/AppTheme.dart';
 import 'package:testdrive/utils/bottomBarView.dart';
 import 'home/models/tabIconData.dart';
@@ -56,7 +56,7 @@ class _ActivityRootState extends State<ActivityRoot>
 
     animationController =
         AnimationController(duration: Duration(milliseconds: 600), vsync: this);
-    tabBody = HomeScreen(animationController: animationController);
+    tabBody = HomeActivity(animationController: animationController);
     super.initState();
   }
 
@@ -111,7 +111,7 @@ class _ActivityRootState extends State<ActivityRoot>
                 if (!mounted) return;
                 setState(() {
                   tabBody =
-                      HomeScreen(animationController: animationController);
+                      HomeActivity(animationController: animationController);
                 });
               });
             }/* else if (index == 1 || index == 3) {

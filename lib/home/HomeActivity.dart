@@ -12,15 +12,15 @@ import 'dart:async';
 
 import 'mealsListView.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeActivity extends StatefulWidget {
   final AnimationController animationController;
 
-  const HomeScreen({Key key, this.animationController}) : super(key: key);
+  const HomeActivity({Key key, this.animationController}) : super(key: key);
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeActivityState createState() => _HomeActivityState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
+class _HomeActivityState extends State<HomeActivity>
     with TickerProviderStateMixin {
   Animation<double> topBarAnimation;
 
