@@ -106,7 +106,7 @@ class _ActivityRootState extends State<ActivityRoot>
           tabIconsList: tabIconsList,
           addClick: () {},
           changeIndex: (index) {
-            if (index == 0 || index == 2) {
+            if (index == 0) {
               animationController.reverse().then((data) {
                 if (!mounted) return;
                 setState(() {
@@ -114,15 +114,15 @@ class _ActivityRootState extends State<ActivityRoot>
                       HomeActivity(animationController: animationController);
                 });
               });
-            }/* else if (index == 1 || index == 3) {
+            } else if (index == 13) {
               animationController.reverse().then((data) {
                 if (!mounted) return;
                 setState(() {
                   tabBody =
-                      TrainingScreen(animationController: animationController);
+                      ActivityFriends(animationController: animationController);
                 });
               });
-            }*/
+            }
           },
         ),
       ],

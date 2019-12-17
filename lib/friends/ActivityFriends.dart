@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(new FriendsRootWidget());
-}
 class FriendsRootWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
