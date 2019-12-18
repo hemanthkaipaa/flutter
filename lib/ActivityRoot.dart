@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:testdrive/home/HomeActivity.dart';
 import 'package:testdrive/utils/AppTheme.dart';
 import 'package:testdrive/utils/bottomBarView.dart';
+import 'friends/ActivityFriends.dart';
 import 'home/models/tabIconData.dart';
 
 class Root extends StatelessWidget{
@@ -114,7 +115,7 @@ class _ActivityRootState extends State<ActivityRoot>
                       HomeActivity(animationController: animationController);
                 });
               });
-            } else if (index == 13) {
+            } else if (index == 1) {
               animationController.reverse().then((data) {
                 if (!mounted) return;
                 setState(() {
