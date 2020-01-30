@@ -123,6 +123,14 @@ class _ActivityRootState extends State<ActivityRoot>
                       ActivityFriends(animationController: animationController);
                 });
               });
+            }else if (index == 2) {
+              animationController.reverse().then((data) {
+                if (!mounted) return;
+                setState(() {
+                  tabBody =
+                      ActivityFriends(animationController: animationController);
+                });
+              });
             }
           },
         ),

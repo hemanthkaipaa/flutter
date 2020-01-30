@@ -115,7 +115,7 @@ class FriendsView extends StatelessWidget {
               opacity: animation,
               child: new Transform(
                 transform: new Matrix4.translationValues(
-                    100 * (1.0 - animation.value), 0.0, 0.0),
+                    0.0,40 * (1.0 - animation.value), 0.0),
                 child: SizedBox(
                   width: double.infinity,
                   child: Stack(
